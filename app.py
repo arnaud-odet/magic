@@ -5,15 +5,15 @@ from scipy.stats import hypergeom
 
 st.markdown("""# Bienvenue dans le Magic""")
 
-M = st.number_input('Combien de cartes te reste-t-il dans ton deck ?', 100)
+M = st.number_input('Combien de cartes te reste-t-il dans ton deck ?', min_value= 1, value=100)
 
-n = st.number_input('Combien de cartes cibles te reste-t-il dans ton deck ?', 42)
+n = st.number_input('Combien de cartes cibles te reste-t-il dans ton deck ?', min_value=0, value = 42)
 
 if n > M :
     print(f"Tu dois faire un erreur, je doute serieusement qu'il te reste {n} cartes cible si ton deck n'a plus que {M} cartes")
 nn = min (M,n)
 
-N = st.number_input('Combien de cartes vas-tu piocher ?', 7)
+N = st.number_input('Combien de cartes vas-tu piocher ?', min_value = 1, value =7)
 
 if N > M :
     print(f"Attention, tu as de serieuses chances de perdre si tu pioches {N} cartes et que ton deck n'a plus que {M} cartes")
@@ -27,7 +27,7 @@ cmf = np.cumsum(pmf)
 
 hypergeom_dict = {
     'Nombre de cartes cibles piochées':x,
-    'Probabilité de piocher exacteemnt ce nombre':pmf,
+    'Probabilité de piocher exactement ce nombre':pmf,
     'Probabilité de piocher au moins ce nombre':cmf
 }
 
