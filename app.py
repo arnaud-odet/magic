@@ -24,7 +24,8 @@ hypergeom_law = hypergeom(M,nn,NN)
 
 pmf = hypergeom_law.pmf(x)
 cmf = np.cumsum(pmf)
-proba_min = [1 - cmf[i] for i in range (len(cmf))]
+proba_min = [1 - cmf[i] for i in range (len(cmf)-1)]
+proba_min.insert(0,1)
 
 hypergeom_dict = {
     'Nombre de cartes cibles piochées':x,
