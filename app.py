@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 from scipy.stats import hypergeom
 
-st.markdown("""# Bienvenue dans le Magic""")
+st.markdown("""# Bienvenue dans le Magic helper""")
 
 M = st.number_input('Combien de cartes te reste-t-il dans ton deck ?', min_value= 1, value=100)
 
@@ -24,11 +24,13 @@ hypergeom_law = hypergeom(M,nn,NN)
 
 pmf = hypergeom_law.pmf(x)
 cmf = np.cumsum(pmf)
+proba_min = np.ones(NN) - cmf
 
 hypergeom_dict = {
     'Nombre de cartes cibles piochées':x,
     'Probabilité de piocher exactement ce nombre':pmf,
-    'Probabilité de piocher au moins ce nombre':cmf
+    'Probabilité de piocher ce nombre ou moins':cmf,
+    'Probabilité de piocher au moins ce nombre':proba_min
 }
 
 df = pd.DataFrame(hypergeom_dict).set_index('Nombre de cartes cibles piochées').apply(lambda x: 100 *x)
